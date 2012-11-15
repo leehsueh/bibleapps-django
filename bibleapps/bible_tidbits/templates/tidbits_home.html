@@ -1,0 +1,44 @@
+{% extends "tidbits_layout.html" %}
+{% block additionalcss %}
+<!-- <link href="http://fonts.googleapis.com/css?family=OFL+Sorts+Mill+Goudy+TT:regular,italic" rel="stylesheet" type="text/css"> -->
+
+<!-- <link href="http://fonts.googleapis.com/css?family=Josefin+Sans:100,100italic,300,300italic,400,400italic,600,600italic,700,700italic" rel="stylesheet" type="text/css"> -->
+<link href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow:regular,bold" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet/less" href="{{ STATIC_URL }}css/tidbit_style.less">
+<style>
+.more_details {
+    font-family: "Maven Pro", "Molengo","PT Sans Narrow";
+    letter-spacing: 0.2em;
+    word-spacing: 3px;
+    line-height: 20px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+    {% if total_count %}<p id="count"><strong>{{ total_count }}</strong> tidbit{{ total_count|pluralize }} and counting...</p>{% endif %}
+    {% if filter_criteria %}<p id="filter_criteria"><strong>{{ filter_count }}</strong> tidbit{{ filter_count|pluralize }} for <span>{{ filter_criteria }}</span></p>{% endif %}
+    {% for tidbit in tidbits.object_list %}
+    {% include "tidbits_single.html" %}
+    {% endfor %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if tidbits.has_previous %}
+                <a href="{{ request.path }}?{% for key,value in request.GET.items %}{% if not key == 'page' %}{{ key }}={{ value}}&{% endif %}{% endfor %}page={{ tidbits.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ tidbits.number }} of {{ tidbits.paginator.num_pages }}.
+            </span>
+
+            {% if tidbits.has_next %}
+                <a href="{{ request.path }}?{% for key,value in request.GET.items %}{% if not key == 'page' %}{{ key }}={{ value}}&{% endif %}{% endfor %}page={{ tidbits.next_page_number }}">next</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}
+
+{% block additionaljs %}
+<script src="{{ STATIC_URL }}js/tidbits_home.js"></script>
+{% endblock %}

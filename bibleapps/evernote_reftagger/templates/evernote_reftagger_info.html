@@ -1,0 +1,23 @@
+{% extends "evernote_reftagger_base.html" %}
+{% block title %}Evernote Info Test{% endblock %}
+{% block content %}
+<h1>User {{ username }}</h1>
+<h2>Info</h2>
+<ul>
+	<li>user id: {{ edam_userId }}</li>
+</ul>
+
+<h2>Notebooks</h2>
+<ul>
+{% for notebook in notebooks %}
+	<li>{{ notebook.name }}{% if notebook.defaultNotebook %} (default){% endif %}</li>
+{% endfor %}
+</ul>
+
+<h2>Notes</h2>
+{% for note in notes %}
+<h3>{{ note.title }}</h3>
+{{ note.content|safe }}
+{% endfor %}
+
+{% endblock %}

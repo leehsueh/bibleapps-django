@@ -1,0 +1,54 @@
+from django.conf.urls.defaults import *
+app_package = 'bibleapps.bible_tidbits'
+urlpatterns = patterns('',
+    url(r'^$',
+        '.'.join([app_package, 'views','home']),
+        name='home'
+    ),
+    url(r'^mine/$',
+        'bibleapps.bible_tidbits.views.my_tidbits',
+        name='my-tidbits'
+    ),
+    url(r'^questions/$',
+        'bibleapps.bible_tidbits.views.question_tidbits',
+        name='question-tidbits'
+    ),
+    url(r'^user/(?P<username>[\w]+)/$',
+        'bibleapps.bible_tidbits.views.tidbits_by_user',
+        name='tidbits-by-user'
+    ),
+    url(r'^tidbit/(?P<tidbit_id>[0-9]+)/$',
+        'bibleapps.bible_tidbits.views.tidbit_detail',
+        name='tidbit-detail'
+    ),
+    url(r'^search/passage/$',
+        'bibleapps.bible_tidbits.views.tidbits_by_passage',
+        name='tidbits-by-passage'
+    ),
+    url(r'^add/$',
+        'bibleapps.bible_tidbits.views.add',
+        name='add'
+    ),
+    url(r'^(?P<book>(\d-)?[\w-]+)/$',
+        'bibleapps.bible_tidbits.views.tidbits_by_book',
+        name='tidbits-by-book'
+    ),
+    url(r'^tags/(?P<tag_slug>[\w-]+)/$',
+        'bibleapps.bible_tidbits.views.tidbits_by_tag',
+        name='tidbits-by-tag'
+    ),
+    url(r'^edit/(?P<tidbit_id>\d+)/$',
+        'bibleapps.bible_tidbits.views.edit',
+        name='edit'
+    ),
+    url(r'^delete/(?P<tidbit_id>\d+)/$',
+        'bibleapps.bible_tidbits.views.delete',
+        name='delete'
+    ),
+    url(r'^ajax/tags/$',
+        'bibleapps.bible_tidbits.views.ajax_tags',
+    ),
+    url(r'^ajax/bible_text/$',
+        'bibleapps.bible_tidbits.views.ajax_bible_text',
+    ),
+)
